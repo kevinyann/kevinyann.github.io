@@ -1,110 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
-	<title>Sign Up</title>
-	<style>#loader{
-		transition:all .3s 
-		ease-in-out;
-		opacity:1;
-		visibility:visible;
-		position:fixed;
-		height:100vh;
-		width:100%;
-		background:#fff;
-		z-index:90000}
-		#loader.fadeOut{
-			opacity:0;
-			visibility:hidden
-		}
-		.spinner{
-			width:40px;
-			height:40px;
-			position:absolute;
-			top:calc(50% - 20px);
-			left:calc(50% - 20px);
-			background-color:#333;
-			border-radius:100%;
-			-webkit-animation:sk-scaleout 1s 
-			infinite ease-in-out;
-			animation:sk-scaleout 1s 
-			infinite ease-in-out}
-			@-webkit-keyframes sk-scaleout{0%{-webkit-transform:scale(0)}100%{-webkit-transform:scale(1);opacity:0}}
-			@keyframes sk-scaleout{0%{-webkit-transform:scale(0);transform:scale(0)}100%{-webkit-transform:scale(1);transform:scale(1);opacity:0}}
-	</style>
-	<link href="style.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>signup - Jumba</title>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap core CSS -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--external css-->
+  <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <!-- Custom styles for this template -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet">
+  
+  <!-- =======================================================
+    Template Name: Dashio
+    Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
 </head>
-<body class="app">
-	<div id="loader">
-		<div class="spinner"></div>
-	</div>
-	<script>window.addEventListener('load', function load() {
-        const loader = document.getElementById('loader');
-        setTimeout(function() {
-          loader.classList.add('fadeOut');
-        }, 300);
-      });
-  	</script>
-  	<div class="peers ai-s fxw-nw h-100vh">
-  		<div class="peer peer-greed h-100 pos-r bgr-n bgpX-c bgpY-c bgsz-cv" style="background-image:url(assets/static/images/bg.jpg)">
-  			<div class="pos-a centerXY">
-  				<div class="bgc-white bdrs-50p pos-r" style="width:120px;height:120px">
-  					<img class="pos-a centerXY" src="assets/static/images/logo.png" alt="">
-  				</div>
-  			</div>
-  		</div>
-  		<div class="col-12 col-md-4 peer pX-40 pY-80 h-100 bgc-white scrollable pos-r" style="min-width:320px">
-  			<h4 class="fw-300 c-grey-900 mB-40">Register</h4>
-  			<form>
-  				<div class="form-group">
-  					<label class="text-normal text-dark">Username</label> 
-  					<input type="text" id="username_field" class="form-control" placeholder="John Doe">
-  				</div>
-  				<div class="form-group">
-  					<label class="text-normal text-dark">Email Address</label> 
-  					<input type="email" id="email_field" class="form-control" placeholder="name@email.com">
-  				</div>
-  				<div class="form-group">
-  					<label class="text-normal text-dark">Password</label> 
-  					<input type="password" id="password_field" class="form-control" placeholder="Password">
-  				</div>
-  				<div class="form-group">
-  					<label class="text-normal text-dark">Confirm Password</label> 
-  					<input type="password" id="confirm_field" class="form-control" placeholder="Password">
-  				</div>
-  				<div class="form-group">
-  					<button onclick="signup()" class="btn btn-primary">Register</button>
-  				</div>
-          <div class="form-group">
-            <span class="peer peer-greed">Already have an account? <a href="signin.html">Login</a></span>
+
+<body>
+  <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+  <div id="login-page">
+    <div class="container">
+      <form class="form-login" @submit.prevent="register">
+        <h2 class="form-login-heading">sign up</h2>
+        <div class="login-wrap">
+          <input type="text" class="form-control" v-model="username" placeholder="UserName" autofocus>
+          <br>
+          <input type="email" class="form-control" v-model="email" placeholder="Email" autofocus>
+          <br>
+          <input type="password" class="form-control" v-model="password" placeholder="Password">
+          <br>
+          <input type="password" class="form-control" v-model="confirm" placeholder="Confirm Password">
+          <br>
+          <button class="btn btn-theme btn-block"><i class="fa fa-lock"></i> SIGN UP</button>
+          <hr>
+          <div class="login-social-link centered">
+            <p>or you can sign up using your social network</p>
+            <button class="btn btn-facebook" type="submit"><i class="fa fa-facebook"></i> Facebook</button>
+            <button class="btn btn-google" type="submit"><i class="fa fa-google"></i> Google</button>
           </div>
-  			</form>
-  		</div>
-  	</div>
-  	<script type="text/javascript" src="vendor.js"></script>
-  	<script type="text/javascript" src="bundle.js"></script>
+          <div class="registration">
+            Already have an account?<br/>
+            <a class="" href="login.html">
+              Login
+              </a>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Forgot Password ?</h4>
+              </div>
+              <div class="modal-body">
+                <p>Enter your e-mail address below to reset your password.</p>
+                <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+              </div>
+              <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                <button class="btn btn-theme" type="button">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- modal -->
+      </form>
+    </div>
+  </div>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.0.0/firebase-app.js"></script>
+  <script>
+  // Initialize Firebase
+  const config = {
+    apiKey: "AIzaSyDcvjDZANNyMLYjYbNXCzc18MejVI4JmAM",
+    authDomain: "fir-web-6ed8c.firebaseapp.com",
+    databaseURL: "https://fir-web-6ed8c.firebaseio.com",
+    projectId: "fir-web-6ed8c",
+    storageBucket: "fir-web-6ed8c.appspot.com",
+    messagingSenderId: "655415966407",
+    appId: "1:655415966407:web:3645b8bc8892913cd09ce2"
+  }
+  firebase.initializeApp(config)
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-      https://firebase.google.com/docs/web/setup#available-libraries -->
+  new Vue({
+    el: '#app',
 
-    <script>
-    // Your web app's Firebase configuration
-      var firebaseConfig = {
-        apiKey: "AIzaSyDcvjDZANNyMLYjYbNXCzc18MejVI4JmAM",
-        authDomain: "fir-web-6ed8c.firebaseapp.com",
-        databaseURL: "https://fir-web-6ed8c.firebaseio.com",
-        projectId: "fir-web-6ed8c",
-        storageBucket: "",
-        messagingSenderId: "655415966407",
-        appId: "1:655415966407:web:3645b8bc8892913cd09ce2"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-    </script>
-    <script src="signup.js"></script>
+    data: {
+      email: '',
+      password: '',
+      displayName: null,
+      photoURL: null,
+      newPassword: null,
+      favoriteFood: null,
+      authUser: null
+    },
+
+    computed: {
+      linkedGoogle () {
+        return !!this.authUser.providerData.find(provider => provider.providerId === 'google.com')
+      },
+      linkedPassword () {
+        return !!this.authUser.providerData.find(provider => provider.providerId === 'password')
+      }
+    },
+
+    methods: {
+      register () {
+        //firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+          //.catch(error => alert('🤕' + error.message))
+          alert("Hello!");
+      },
+      signOut () {
+        firebase.auth().signOut()
+      }
+    },
+
+    created () {
+      firebase.auth().onAuthStateChanged(user => {
+        this.authUser = user
+        if (user) {
+          this.displayName = user.displayName
+          this.photoURL = user.photoURL
+          this.email = user.email
+          firebase.database().ref('users').child(user.uid).once('value', snapshot => {
+            if (snapshot.val()) {
+              this.favoriteFood = snapshot.val().favoriteFood
+              Vue.set(this.authUser, 'favoriteFood', this.favoriteFood)
+            }
+          })
+        }
+      })
+    }
+  })
+  </script>
+
+
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <!--BACKSTRETCH-->
+  <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+  <script type="text/javascript" src="lib/jquery.backstretch.min.js"></script>
+  <script>
+    $.backstretch("img/login-bg.jpg", {
+      speed: 500
+    });
+  </script>
 </body>
+
 </html>
